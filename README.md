@@ -10,7 +10,7 @@ The goal is to make the process clear, organized, and reusable for any Splunk an
 
 - Introduction
 - Prerequisites
-- Detailed Proceduree)
+- Detailed Proceduree
   - Firewall Rules Configuration
   - Disabling Transparent Huge Pages (THP)
   - Splunk Enterprise Installation
