@@ -34,32 +34,77 @@ Antes de começar, verifique se você possui:
 
 # Regras de Firewall
 
-📌 1. Adicionando regras de firewall
+---
 
+## Prerequisites
 
-```python
+Ensure `iptables` is installed and you have **root privileges** to run the commands below.
+
+---
+
+## 1. Add Firewall Rules
+
+```bash
+# Allow Splunk Web Interface
 sudo iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
-```
 
-
-```python
+# Allow Splunk Management Interface (SSL)
 sudo iptables -I INPUT -p tcp --dport 8443 -j ACCEPT
-```
 
-
-```python
+# Allow Secure Web Interface (HTTPS)
 sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
-```
 
-
-```python
+# Allow HTTP Event Collector (HEC)
 sudo iptables -I INPUT -p tcp --dport 8088 -j ACCEPT
-```
 
-
-```python
+# Allow Universal Forwarder Port
 sudo iptables -I INPUT -p tcp --dport 9997 -j ACCEPT
 ```
+
+---
+
+## 2. Save Rules (Persistent on Reboot)
+
+### For CentOS / RHEL
+
+```bash
+sudo yum install -y iptables-services
+sudo service iptables save
+sudo systemctl enable iptables
+```
+
+### For Ubuntu / Debian
+
+```bash
+sudo apt install -y iptables-persistent
+sudo netfilter-persistent save
+sudo netfilter-persistent reload
+```
+
+---
+
+## 3. Verify Open Ports
+
+```bash
+sudo iptables -L -n -v | grep tcp
+```
+
+You should see the ports **8000, 8443, 443, 8088, and 9997** listed with ACCEPT rules.
+
+---
+
+## Notes
+
+- These rules apply to **IPv4**. For **IPv6**, use `ip6tables`.
+- Consider securing your server with `fail2ban` or `ufw` if running in production.
+- Use `iptables-save` to export your current configuration at any time.
+
+---
+
+## References
+
+- [Splunk Enterprise Network and Port Requirements](https://docs.splunk.com/Documentation/Splunk/latest/Admin/Ports)
+- [iptables Documentation](https://linux.die.net/man/8/iptables)
 
 Integração de Logs do Cisco ASA e Carbon Black EDR no Splunk ES 8
 
