@@ -41,40 +41,36 @@ Before starting, make sure you have:
 sudo iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
 ```
 
-
 ```python
 sudo iptables -I INPUT -p tcp --dport 8443 -j ACCEPT
 ```
-
 
 ```python
 sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT
 ```
 
-
 ```python
 sudo iptables -I INPUT -p tcp --dport 8088 -j ACCEPT
 ```
-
 
 ```python
 sudo iptables -I INPUT -p tcp --dport 9997 -j ACCEPT
 ```
 
-Integração de Logs do Cisco ASA e Carbon Black EDR no Splunk ES 8
+Cisco ASA and Carbon Black EDR Log Integration in Splunk ES 8
 
-💾 2. Salvar as regras para persistência após reboot
+💾 2. Save rules for persistence after reboot
 
-Para sistemas baseados em Debian/Ubuntu:
+For Debian/Ubuntu based systems:
 
 
 ```python
 sudo iptables-save | sudo tee /etc/iptables.rules
 ```
 
-🔄 3. Aplicar as regras após reinicialização
+🔄 3. Apply rules after reboot
 
-Para garantir que as regras sejam aplicadas no boot:
+To ensure that the rules are applied at boot:
 
 
 ```python
@@ -86,255 +82,257 @@ sudo bash -c "echo -e '#!/bin/sh\n/sbin/iptables-restore < /etc/iptables.rules' 
 sudo chmod +x /etc/network/if-pre-up.d/iptables
 ```
 
-✅ 4. Verificar se as regras foram aplicadas
+✅ 4. Check if the rules were applied
 
 
 ```python
 sudo iptables -L -n
 ```
 
-Isso listará todas as regras configuradas no iptables, incluindo as portas recém-adicionadas.
+This will list all the rules configured in iptables, including the newly added ports.
 
-# Desativando Transparent Huge Pages (THP) antes de instalar o Splunk Enterprise Trial
+# Disabling Transparent Huge Pages (THP) before installing the Splunk Enterprise Trial
 
-O Transparent Huge Pages (THP) pode impactar negativamente o desempenho do Splunk. Portanto, a Splunk recomenda que essa configuração seja desativada antes da instalação.
+Transparent Huge Pages (THP) can negatively impact Splunk performance. Therefore, Splunk recommends that this setting be disabled before installation.
 
-1️⃣ Verificar o status atual do THP
+1️⃣ Check current THP status
 
-Antes de fazer qualquer alteração, verifique se o THP está ativado no sistema:
+Before making any changes, make sure THP is enabled on your system:
 
 
 ```python
 cat /sys/kernel/mm/transparent_hugepage/enabled
 ```
 
-Se a saída indicar [always] ou [madvise], significa que o THP está ativado e precisa ser desativado.
+If the output says [always] or [madvise], it means that THP is enabled and needs to be disabled.
 
-2️⃣ Editar o arquivo de configuração do GRUB
+2️⃣ Edit the GRUB configuration file
 
-Abra o arquivo de configuração do GRUB com o editor vi (ou outro de sua preferência):
+Open the GRUB configuration file with vi (or another editor of your choice):
 
 
 ```python
 sudo vi /etc/default/grub
 ```
 
-Localize a linha que começa com GRUB_CMDLINE_LINUX e adicione transparent_hugepage=never no final da linha, dentro das aspas.
+Locate the line that begins with GRUB_CMDLINE_LINUX and add transparent_hugepage=never to the end of the line, inside the quotes.
 
-Exemplo:
+Example:
 
 
 ```python
 GRUB_CMDLINE_LINUX="rhgb quiet transparent_hugepage=never"
 ```
 
-Salve e saia do editor (ESC → :wq → Enter).
+Save and exit the editor (ESC → :wq → Enter).
 
-3️⃣ Atualizar o GRUB
+3️⃣ Update GRUB
 
-Após editar o arquivo, gere uma nova configuração do GRUB com o seguinte comando:
+After editing the file, generate a new GRUB configuration with the following command:
 
 
 ```python
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
-4️⃣ Reiniciar o sistema
+4️⃣ Restart the system
 
-Agora, reinicie o servidor para aplicar as alterações:
+Now, restart the server to apply the changes:
 
 
 ```python
 sudo reboot
 ```
 
-5️⃣ Verificar se o THP foi desativado
+5️⃣ Check if THP has been disabled
 
-Após o reboot, confirme se o THP está desativado:
+After reboot, confirm that THP is disabled:
 
 
 ```python
 cat /sys/kernel/mm/transparent_hugepage/enabled
 ```
 
-A saída deve mostrar ”[never]”, indicando que o THP foi desativado com sucesso.
+The output should show ”[never]”, indicating that THP was successfully disabled.
 
-🔗 Documentação Oficial
+🔗 Official Documentation
 
-Para mais informações, consulte a documentação oficial da Splunk:
+For more information, see the official Splunk documentation:
 🔗 Splunk and THP - Transparent Huge Pages
 
-# 📌 Passo a Passo: Instalação do Splunk Enterprise Trial no Linux
+# 📌 Step by Step: Installing Splunk Enterprise Trial on Linux
 
-🔹 1️⃣ Acessando o Servidor via SSH
+🔹 1️⃣ Accessing the Server via SSH
 
-Abra um terminal e conecte-se ao servidor via SSH:
+Open a terminal and connect to the server via SSH:
 
 `ssh Nome_Do_Usuario@<IP_DO_SERVIDOR>`
 
-🔹 Substitua:
-	•	Nome_Do_Usuario pelo usuário do sistema operacional ou domínio.
-	•	<IP_DO_SERVIDOR> pelo IP real do host onde deseja instalar o Splunk.
+🔹 Replace:
+	•	User_Name by the operating system or domain user.
+	•	<SERVER_IP> with the actual IP of the host where you want to install Splunk.
 
-🔹 2️⃣ Criando um Usuário para o Splunk
+🔹 2️⃣ Creating a User for Splunk
 
-Para garantir uma instalação segura, criaremos um usuário dedicado para rodar o Splunk:
+To ensure a secure installation, we will create a dedicated user to run Splunk:
 
-🔹 Esse comando:
-	•	Cria um usuário chamado splunkuser.
+🔹 This command:
+	•	Creates a user called splunkuser.
 
 
 ```python
 sudo useradd -m -r splunkuser
 ```
 
-🔹 Esse comando:
-	•	Solicita a definição de uma senha para ele.
+🔹 This command:
+	•	It asks you to set a password for it.
 
 
 ```python
 sudo passwd splunkuser
 ```
 
-🔑 *Credenciais:
-	•	Usuário do SO: splunkuser
-	•	Senha do SO: Definida no comando acima*
+🔑 *Credentials:
+	•	OS User: splunkuser
+	•	OS Password: Set in the above command*
 
- 🔹 3️⃣ Adicionando o Usuário Splunk ao Grupo Sudo
+ 🔹 3️⃣ Adding the Splunk User to the Sudo Group
 
-1️Adicione o splunkuser ao grupo sudo:
+1️Add splunkuser to the sudo group:
 
 
 ```python
 sudo usermod -aG sudo splunkuser
 ```
 
-Verifique se a adição foi bem-sucedida:
+Verify that the addition was successful:
 
 
 ```python
 groups splunkuser
 ```
 
-Para mudar para o bash, execute:
+To switch to bash, run:
 
 
 ```python
 sudo chsh -s /bin/bash splunkuser
 ```
 
-Aplique as mudanças saindo e entrando novamente como splunkuser:
+Apply the changes by logging out and logging back in as splunkuser:
 
 
 ```python
 su - splunkuser
 ```
 
-Onde Estou?
+Where am I?
 
 
 ```python
 pwd
 ```
 
-Quem eu sou?
+Who am I?
 
 
 ```python
 whoami
 ```
 
-O que tenho?
+What do I have?
 
 
 ```python
 ls
 ```
 
-Quais as permissões associadas ao que tenho?
+What permissions are associated with what I have?
 
 
 ```python
 ls -lha
 ```
 
-🔹 4️⃣ Baixando o Instalador do Splunk
+🔹 4️⃣ Downloading the Splunk Installer
 
-🔹 Esse comando:
-	•	Faz o download do Splunk Enterprise versão 9.4.1.
-	•	Se quiser outra versão, ajuste o link no wget.
+🔹 This command:
+	•	Download Splunk Enterprise version 9.4.1.
+	•	If you want another version, adjust the link in wget.
 
 
 ```python
 sudo wget -O splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz "https://download.splunk.com/products/splunk/releases/9.4.1/linux/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz"
 ```
 
-Agora, vá para o diretório de downloads:
+Now, go to your downloads directory:
 
 
 ```python
 cd /home/splunkuser/
 ```
 
-🔹 5️⃣ Ajustando Permissões no Arquivo de Instalação
+🔹 5️⃣ Adjusting Permissions on the Installation File
 
-Antes de instalar, confira as permissões do arquivo:
+Before installing, check the file permissions:
 
 
 ```python
 ls -lha /home/splunkuser
 ```
 
-Dê permissão de execução ao arquivo:
+Give execute permission to the file:
 
 
 ```python
 sudo chmod +x /home/splunkuser/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz
 ```
 
-Verifique novamente as permissões:
+Double check the permissions:
 
 
 ```python
 ls -lha /home/splunkuser
 ```
 
-🔹 6️⃣ Criando o Diretório de Instalação do Splunk
+🔹 6️⃣ Creating the Splunk Installation Directory
 
 
 ```python
 sudo mkdir /opt/splunk
 ```
 
-Agora, altere o dono da pasta para o usuário splunkuser:
-
-sudo chown -R splunkuser:splunkuser /opt/splunk
+Now, change the owner of the folder to the splunkuser user:
 
 
 ```python
 sudo chown -R splunkuser:splunkuser /opt/splunk
 ```
 
-Verifique se as permissões estão corretas:
+```python
+sudo chown -R splunkuser:splunkuser /opt/splunk
+```
+
+Check if the permissions are correct:
 
 
 ```python
 ls -lha /opt/splunk
 ```
 
-🔹 7️⃣ Instalando o Splunk
+🔹 7️⃣ Installing Splunk
 
-Extraia o arquivo baixado para /opt
-(📌 Isso instalará o Splunk na pasta /opt/splunk.):
+Extract the downloaded file to /opt
+(📌 This will install Splunk in the folder /opt/splunk):
 
 
 ```python
 tar -xzvf splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz -C /opt
 ```
 
-🔹 8️⃣ Iniciando o Splunk
+🔹 8️⃣ Starting Splunk
 
-Agora, inicie o Splunk e aceite a licença:
+Now, launch Splunk and accept the license:
 
 
 ```python
@@ -342,31 +340,31 @@ Agora, inicie o Splunk e aceite a licença:
 ```
 
 🔑
-* Credenciais Padrão do Splunk:
-*	Usuário do SO: splunkuser
-*	Senha do SO: (definida anteriormente)
-*	Usuário do Splunk: admin
-*	Senha do Splunk: splunkuser
+* Splunk Default Credentials:
+*	OS User: splunkuser
+*	OS Password: (definida anteriormente)
+*	Splunk User: admin
+*	Splunk Password: splunkuser
 
-🔹 9️⃣ Configurando o Splunk para Iniciar Automaticamente
+🔹 9️⃣ Setting Splunk to Start Automatically
 
-Para garantir que o Splunk inicie automaticamente ao reiniciar o servidor:
+To ensure that Splunk starts automatically when you restart the server:
 
 
 ```python
 sudo /opt/splunk/bin/splunk enable boot-start -user splunkuser --accept-license --answer-yes --no-prompt
 ```
 
-Isso configura o serviço do Splunk para iniciar automaticamente com o sistema.
+This configures the Splunk service to start automatically when the system starts.
 
-Verifique o arquivo de inicialização:
+Check the startup file:
 
 
 ```python
 sudo vi /etc/init.d/splunk
 ```
 
-Adicione as seguintes linhas (se necessário):
+Add the following lines (if necessary):
 
 
 ```python
@@ -375,37 +373,37 @@ USER=splunkuser
 . /etc/init.d/functions
 ```
 
-🔹 🔄 Comandos Básicos para Gerenciar o Splunk
+🔹 🔄 Basic Commands to Manage Splunk
 
-Verificar status
+Check status
 
 
 ```python
 /opt/splunk/bin/splunk status
 ```
 
-Iniciar o Splunk
+Launch Splunk
 
 
 ```python
 /opt/splunk/bin/splunk start
 ```
 
-Parar o Splunk
+Stop Splunk
 
 
 ```python
 /opt/splunk/bin/splunk stop
 ```
 
-Reiniciar o Splunk
+Restart Splunk
 
 
 ```python
 /opt/splunk/bin/splunk restart
 ```
 
-Agora o Splunk está instalado e configurado no seu servidor Linux. Para acessá-lo via navegador, abra:
+Splunk is now installed and configured on your Linux server. To access it via a web browser, open:
 
 
 ```python
