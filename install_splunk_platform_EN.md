@@ -30,17 +30,11 @@ Before starting, make sure you have:
 - Proper connectivity between Splunk components.
 - Google Colab (originally used) or an equivalent Python execution environment (optional).
 
-## Detailed Procedure
-
 # Regras de Firewall
-
----
 
 ## Prerequisites
 
 Ensure `iptables` is installed and you have **root privileges** to run the commands below.
-
----
 
 ## 1. Add Firewall Rules
 
@@ -80,7 +74,6 @@ sudo apt install -y iptables-persistent
 sudo netfilter-persistent save
 sudo netfilter-persistent reload
 ```
-
 ---
 
 ## 3. Verify Open Ports
