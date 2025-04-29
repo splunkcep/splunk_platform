@@ -1036,9 +1036,6 @@ Feel free to adapt the process according to your specific environment needs or f
 
 ---
 
-**Author:**  
-Levi Lima Greter
-
 **License:**  
 MIT License
 
