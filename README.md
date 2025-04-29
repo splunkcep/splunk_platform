@@ -8,8 +8,8 @@ The goal is to make the process clear, organized, and reusable for any Splunk an
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
+- [Introduction]
+- [Prerequisites]
 - [Detailed Procedure](#detailed-procedure)
   - [Firewall Rules Configuration](#firewall-rules-configuration)
   - [Disabling Transparent Huge Pages (THP)](#disabling-transparent-huge-pages-thp)
