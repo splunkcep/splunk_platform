@@ -12,8 +12,8 @@ The goal is to make the process clear, organized, and reusable for any Splunk an
 - Prerequisites
 - Detailed Proceduree)
   - Firewall Rules Configuration
-  - Disabling Transparent Huge Pages (THP)]
-  - Splunk Enterprise Installation]
+  - Disabling Transparent Huge Pages (THP)
+  - Splunk Enterprise Installation
   - Integrating Cisco ASA and Carbon Black EDR Logs
   - Installing Splunk Enterprise Security 8.0.2
   - [Simulating SQL Injection Attacks
