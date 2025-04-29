@@ -108,7 +108,7 @@ You should see the ports **8000, 8443, 443, 8088, and 9997** listed with ACCEPT 
 
 ______
 
-Integração de Logs do Cisco ASA e Carbon Black EDR no Splunk ES 8
+## Integração de Logs do Cisco ASA e Carbon Black EDR no Splunk ES 8
 
 💾 2. Salvar as regras para persistência após reboot
 
