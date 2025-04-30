@@ -5,6 +5,7 @@ This project documents the step-by-step procedure originally executed in a Googl
 The goal is to make the content clear, organized, and reusable by any Splunk analyst or architect aiming to install and configure **Splunk ES 8.0.2**.
 
 ---
+[test](https://github.com/splunkcep/splunk_platform/edit/main/install_splunk_platform_EN.md)
 
 ## Table of Contents
 
