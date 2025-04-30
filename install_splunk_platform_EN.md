@@ -38,7 +38,7 @@ Ensure `iptables` is installed and you have **root privileges** to run the comma
 
 ## 1. Add Firewall Rules
 
-# Allow Splunk Web Interface
+### Allow Splunk Web Interface
 ```bash
 sudo iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
 ```
