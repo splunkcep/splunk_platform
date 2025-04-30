@@ -5,7 +5,6 @@ This project documents the step-by-step procedure originally executed in a Googl
 The goal is to make the content clear, organized, and reusable by any Splunk analyst or architect aiming to install and configure **Splunk ES 8.0.2**.
 
 ---
-[test](https://github.com/splunkcep/splunk_platform/edit/main/install_splunk_platform_EN.md)
 
 ## Table of Contents
 
@@ -39,10 +38,11 @@ Ensure `iptables` is installed and you have **root privileges** to run the comma
 
 ## 1. Add Firewall Rules
 
-```bash
 # Allow Splunk Web Interface
+```bash
 sudo iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
-
+```
+```bash
 # Allow Splunk Management Interface (SSL)
 sudo iptables -I INPUT -p tcp --dport 8443 -j ACCEPT
 
