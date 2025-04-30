@@ -6,8 +6,8 @@ This project documents the step-by-step procedure to prepare a CentOS8 operating
 
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
-- [Firewall Preparation](#detailed-procedure)
-- [Next Steps](#conclusion)
+- [Firewall Preparation](#firewall-preparation)
+- [Next Steps](#next-steps)
 
 ---
 
@@ -23,9 +23,9 @@ Before starting, make sure :
 - The server has internet connectivity
 - You have Root privileges to run the commands
 
-# Firewall preparation
+## Firewall preparation
 
-## 1. Firewall validation / installation
+### 1. Firewall validation / installation
 
 ```bash
 # Verify firewall is running
@@ -46,7 +46,7 @@ sudo systemctl enable firewalld —now
 sudo systemctl status firewalld
 ```
 
-## 2. Open necessary ports
+### 2. Open necessary ports
 
 In order to make the most of Splunk, we need to open the following ports:
 - 8000 TCP - To allow Splunk Web Interface
@@ -74,7 +74,7 @@ sudo firewall-cmd --zone=public --add-port=8088/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=9997/tcp --permanent
 ```
 
-##3. Apply changes and verify
+### 3. Apply changes and verify
 
 ```bash
 # Reload firewall to apply permanent rules to the running configuration
@@ -84,7 +84,7 @@ sudo firewall-cmd --reload
 sudo firewall-cmd --zone=public --list-ports --permanent
 ```
 
-# Next Steps
+## Next Steps
 
 The recommended Next Step for deploying Splunk Enterprise is [Disabling Transparent Huge Pages (THP)](XXXXX)
 
