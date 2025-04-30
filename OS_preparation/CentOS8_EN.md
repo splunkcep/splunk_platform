@@ -1,7 +1,7 @@
 # Preparing CentOS8 for Splunk Enterprise Installation
 
+--
 This project documents the step-by-step procedure to prepare a CentOS8 operating system to host Splunk Enterprise
----
 
 ## Table of Contents
 
