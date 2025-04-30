@@ -4,24 +4,24 @@ import os
 import subprocess
 
 def check_and_install_firewalld():
-    """Verifica se o firewalld está instalado e o instala se necessário."""
-    print("Verificando a presença do firewalld...")
+    """Checks if firewalld is installed, if not, it will be installed."""
+    print("Verifying firewall intalled...")
     firewalld_check = subprocess.run(["rpm", "-q", "firewalld"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     
     if "is not installed" in firewalld_check.stdout:
-        print("firewalld não encontrado. Instalando...")
+        print("Firewall not found. Installing...")
         os.system("sudo yum install -y firewalld")
         os.system("sudo systemctl enable firewalld --now")
-        print("firewalld instalado e ativado com sucesso!")
+        print("firewall installed and successfulluy activated!")
     else:
-        print("firewalld já está instalado.")
+        print("The firewall is already isntalled.")
 
 def configure_firewall():
-    """Configura o firewalld para abrir a porta 8000."""
-    print("Configurando firewall...")
+    """Configures firewall to open port 8000."""
+    print("Configuring firewall...")
     os.system("sudo firewall-cmd --zone=public --add-port=8000/tcp --permanent")
     os.system("sudo firewall-cmd --reload")
-    print("Porta 8000 adicionada com sucesso!")
+    print("Port 8000 added successfully!")
 
 def create_splunk_user():
     """Cria o usuário Splunk e define senha padrão."""
