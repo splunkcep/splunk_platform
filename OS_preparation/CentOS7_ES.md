@@ -1,6 +1,6 @@
 # Preparación de CentOS7 para la Instalación de Splunk Enterprise
 
-Este proyecto documenta el procedimiento paso a paso para preparar un sistema operativo CentOS7 para instalar Splunk Enterprise.
+Este proyecto documenta el procedimiento paso a paso para preparar un sistema operativo CentOS7 para la instalación de Splunk Enterprise.
 
 ## Tabla de Contenido
 
@@ -124,4 +124,9 @@ sudo iptables -nvL
 
 ## Próximos Pasos
 
-The recommended Next Step for deploying Splunk Enterprise is [Disabling Transparent Huge Pages (THP)](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_ES.md)
+El siguiente paso recomendado para instalar Splunk Enterprise es [Deshabilitar Transparent Huge Pages (THP)](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_ES.md)
+
+## Referencias
+
+- [Splunk Enterprise Network and Port Requirements](https://docs.splunk.com/Documentation/Splunk/9.4.1/InheritedDeployment/Ports)
+- [iptables Documentation](https://linux.die.net/man/8/iptables)

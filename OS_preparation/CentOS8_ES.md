@@ -107,4 +107,8 @@ sudo firewall-cmd --zone=public --list-ports --permanent
 
 ## Próximos Pasos
 
-The recommended Next Step for deploying Splunk Enterprise is [Disabling Transparent Huge Pages (THP)](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_ES.md)
+El siguiente paso recomendado para instalar Splunk Enterprise es [Deshabilitar Transparent Huge Pages (THP)](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_ES.md)
+
+## Referencias
+
+- [Splunk Enterprise Network and Port Requirements](https://docs.splunk.com/Documentation/Splunk/9.4.1/InheritedDeployment/Ports)

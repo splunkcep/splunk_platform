@@ -97,7 +97,7 @@ You should see the ports **8000, 8443, 443, 8088, and 9997** listed with ACCEPT 
 
 ## References
 
-- [Splunk Enterprise Network and Port Requirements](https://docs.splunk.com/Documentation/Splunk/latest/Admin/Ports)
+- [Splunk Enterprise Network and Port Requirements](https://docs.splunk.com/Documentation/Splunk/9.4.1/InheritedDeployment/Ports)
 - [iptables Documentation](https://linux.die.net/man/8/iptables)
 
 ______
