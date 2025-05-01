@@ -1,4 +1,4 @@
-# Splunk Enterprise Security 8.0.2 Setup Guide
+# Splunk Enterprise Setup Guide
 
 This project documents the step-by-step procedure originally executed in a Google Colab environment, now adapted into Markdown format for professional GitHub repositories.
 
@@ -103,8 +103,6 @@ You should see the ports **8000, 8443, 443, 8088, and 9997** listed with ACCEPT 
 ______
 
 
-## Cisco ASA and Carbon Black EDR Log Integration in Splunk ES 8
-
 💾 2. Save rules for persistence after reboot
 
 For Debian/Ubuntu based systems:
@@ -146,7 +144,7 @@ Transparent Huge Pages (THP) can negatively impact Splunk performance. Therefore
 Before making any changes, make sure THP is enabled on your system:
 
 
-```python
+```bash
 cat /sys/kernel/mm/transparent_hugepage/enabled
 ```
 
@@ -157,7 +155,7 @@ If the output says [always] or [madvise], it means that THP is enabled and needs
 Open the GRUB configuration file with vi (or another editor of your choice):
 
 
-```python
+```bash
 sudo vi /etc/default/grub
 ```
 
@@ -166,7 +164,7 @@ Locate the line that begins with GRUB_CMDLINE_LINUX and add transparent_hugepage
 Example:
 
 
-```python
+```bash
 GRUB_CMDLINE_LINUX="rhgb quiet transparent_hugepage=never"
 ```
 
@@ -177,7 +175,7 @@ Save and exit the editor (ESC → :wq → Enter).
 After editing the file, generate a new GRUB configuration with the following command:
 
 
-```python
+```bash
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
@@ -186,7 +184,7 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 Now, restart the server to apply the changes:
 
 
-```python
+```bash
 sudo reboot
 ```
 
@@ -195,7 +193,7 @@ sudo reboot
 After reboot, confirm that THP is disabled:
 
 
-```python
+```bash
 cat /sys/kernel/mm/transparent_hugepage/enabled
 ```
 
