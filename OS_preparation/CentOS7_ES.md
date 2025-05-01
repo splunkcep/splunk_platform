@@ -88,6 +88,9 @@ sudo iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
 # Permitir Interfaz de Gestión / API REST de Splunk (TCP 8089)
 sudo iptables -I INPUT -p tcp --dport 8089 -j ACCEPT
 
+# Permitir Interfaz de Gestión de Splunk (SSL) (TCP 8443)
+sudo iptables -I INPUT -p tcp --dport 8443 -j ACCEPT
+
 # Permitir Recepción de Datos del Indexer (TCP 9997)
 sudo iptables -I INPUT -p tcp --dport 9997 -j ACCEPT
 
