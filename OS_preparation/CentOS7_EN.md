@@ -66,6 +66,8 @@ Based on the common Splunk ports (as seen in the "Common Splunk Enterprise Defau
 * 8000 TCP - To allow Splunk Web Interface
 
 * 8089 TCP - To allow Splunk Management Interface / REST API
+  
+* 8443 TCP - To allow Splunk Management Interface (SSL)
 
 * 9997 TCP - To allow communication to Universal Forwarder
 
