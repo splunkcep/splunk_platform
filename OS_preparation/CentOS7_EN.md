@@ -124,4 +124,4 @@ sudo iptables -nvL
 
 ## Next Steps
 
-The recommended Next Step for deploying Splunk Enterprise is [Disabling Transparent Huge Pages (THP)](XXXXX)
+The recommended Next Step for deploying Splunk Enterprise is [Disabling Transparent Huge Pages (THP)](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_EN.md)
