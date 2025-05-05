@@ -21,9 +21,7 @@ This project documents the step-by-step procedure to prepare a CentOS8 operating
 Before starting, make sure :
 
 * CentOS8 Operating system is already installed.
-
 * The server has internet connectivity.
-
 * You have Root privileges to run the commands.
 
 ## Firewall preparation
