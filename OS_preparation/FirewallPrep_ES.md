@@ -1,4 +1,4 @@
-#Preparación de Firewall
+# Preparación de Firewall
 
 Se han creado instrucciones paso a paso para los varios sistemas operativos Unix/Linux soportados. Por favor elija el sistema operativo donde va a instalar Splunk Enterprise:
 
