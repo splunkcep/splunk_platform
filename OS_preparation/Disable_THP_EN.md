@@ -7,7 +7,7 @@ Transparent Huge Pages (THP) can negatively impact Splunk performance. Therefore
 Before making any changes, make sure THP is enabled on your system. You can check if THP is enabled and how it's configured by looking at the enabled file in the /sys filesystem.
 
 
-```bash
+```terminal
 cat /sys/kernel/mm/transparent_hugepage/enabled
 ```
 
