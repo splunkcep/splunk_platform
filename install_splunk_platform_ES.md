@@ -6,7 +6,7 @@
 
 - [Introducción](#Introducción)
 - [Pre-requisitos](#pre-requisitos)
-- [Proceso Detallado](#proceso-detallado)
+- [Proceso Detallado](#Proceso-Detallado)
 - [Conclusión](#conclusion)
 - [Notas Finales](#final-notes)
   
