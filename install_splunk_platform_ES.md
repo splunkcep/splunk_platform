@@ -29,7 +29,7 @@ Antes de comenzar, asegúrese de contar con:
 
 
 ## Proceso Detallado
-## Instalación de Splunk Enterprise en Linux 
+### Instalación de Splunk Enterprise en Linux 
 
 ### 1. Acceso al servidor por SSH
 
