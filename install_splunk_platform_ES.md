@@ -4,8 +4,8 @@
 
 ## Tabla de Contenidos
 
-- [Introducción](#introduction)
-- [Pre-requisitos](#prerequisites)
+- [Introducción](#Introducción)
+- [Pre-requisitos](#pre-requisitos)
 - [Proceso Detallado](#detailed-procedure)
 - [Conclusión](#conclusion)
 - [Notas Finales](#final-notes)
@@ -16,7 +16,7 @@
 
 Esta guía proporciona un procedimiento detallado para instalar y configurar Splunk Enterprise. Dirigida a ingenieros tecnológicos, facilita el aprovechamiento de los datos de las máquinas. Aprenda a transformar sus datos en inteligencia operativa.
 
-## Requisitos previos
+## Pre-requisitos
 
 Antes de comenzar, asegúrese de contar con:
 * Un sistema operativo compatible instalado. Consulte [aquí](https://docs.splunk.com/Documentation/Splunk/9.4.1/Installation/Systemrequirements) la lista de sistemas operativos compatibles.
