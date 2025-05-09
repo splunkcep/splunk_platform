@@ -37,10 +37,10 @@ Abra una terminal y conéctese al servidor por SSH:
 `ssh User_Name@<Server_IP>`
 
 * Reemplace:
-* User_Name por el usuario del sistema operativo o del dominio.
-* <SERVER_IP> con la IP real del host donde desea instalar Splunk.
+  * User_Name por el usuario del sistema operativo o del dominio.
+  * <SERVER_IP> con la IP real del host donde desea instalar Splunk.
 
-  ### 2. Creación de un usuario para Splunk
+### 2. Creación de un usuario para Splunk
 
 Para garantizar una instalación segura, crearemos un usuario dedicado para ejecutar Splunk:
 
