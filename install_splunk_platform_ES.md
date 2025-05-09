@@ -52,9 +52,6 @@ sudo useradd -m -r splunkuser
 sudo passwd splunkuser
 ```
 
-### 3. Adición del usuario de Splunk al grupo Sudo
-
-Adición de splunkuser al grupo Sudo:
 
 ### 3. Añadir el usuario de Splunk al grupo Sudo
 
