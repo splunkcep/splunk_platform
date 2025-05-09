@@ -90,17 +90,17 @@ ls
 ls -lha
 ```
 
-🔹 4️⃣ Descarga del instalador de Splunk
+🔹 4️⃣ Descargue del instalador de Splunk
 
 🔹 Este comando:
-• Descarga la versión 9.4.1 de Splunk Enterprise.
-• Si deseas otra versión, modifica el enlace en wget.
+• Descargue la versión 9.4.1 de Splunk Enterprise.
+• Si desea otra versión, modifique el enlace en wget.
 
 ```bash
 sudo wget -O splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz "https://download.splunk.com/products/splunk/releases/9.4.1/linux/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz"
 ```
 
-Ahora, ve a tu directorio de descargas:
+Ahora, vaya a su directorio de descargas:
 
 ```bash
 cd /home/splunkuser/
@@ -108,12 +108,12 @@ cd /home/splunkuser/
 
 🔹 5️⃣ Ajustar los permisos del archivo de instalación
 
-Antes de instalar, comprueba los permisos del archivo:
+Antes de instalar, compruebe los permisos del archivo:
 ```bash
 ls -lha /home/splunkuser
 ```
 
-Asigna permisos de ejecución al archivo:
+Asigne permisos de ejecución al archivo:
 
 ```bash
 sudo chmod +x /home/splunkuser/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz
@@ -144,7 +144,7 @@ sudo chown -R splunkuser:splunkuser /opt/splunk
 sudo chown -R splunkuser:splunkuser /opt/splunk
 ```
 
-Comprueba si los permisos son correctos:
+Compruebe si los permisos son correctos:
 
 ```python
 ls -lha /opt/splunk
@@ -152,7 +152,7 @@ ls -lha /opt/splunk
 
 🔹 7️⃣ Instalación de Splunk
 
-Extrae el archivo descargado en /opt
+Extraiga el archivo descargado en /opt
 (📌 Esto instalará Splunk en la carpeta /opt/splunk):
 
 ```python
@@ -161,7 +161,7 @@ tar -xzvf splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz -C /opt
 
 🔹 8️⃣ Inicio de Splunk
 
-Ahora, inicia Splunk y acepta la licencia:
+Ahora, inicie Splunk y acepte la licencia:
 
 ```python
 /opt/splunk/bin/splunk start --accept-license
@@ -173,6 +173,7 @@ Ahora, inicia Splunk y acepta la licencia:
 * Contraseña del SO: (definida anteriormente)
 * Usuario de Splunk: admin
 * Contraseña de Splunk: splunkuser
+
 
 🔹 9️⃣ Configurar Splunk para que se inicie automáticamente
 
