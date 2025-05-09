@@ -1,4 +1,4 @@
-# Guía de configuración de Splunk Enterprise Security 8.0.2
+# Guía de configuración de Splunk Enterprise
 
 ---
 
@@ -6,7 +6,7 @@
 
 - [Introducción](#Introducción)
 - [Pre-requisitos](#pre-requisitos)
-- [Proceso Detallado](#detailed-procedure)
+- [Proceso Detallado](#proceso-detallado)
 - [Conclusión](#conclusion)
 - [Notas Finales](#final-notes)
   
@@ -28,7 +28,7 @@ Antes de comenzar, asegúrese de contar con:
 * Las páginas transparentes de Hughe (THP) están deshabilitadas en el sistema operativo. Consulta el archivo [Deshabilitar THP](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_EN.md) para ver instrucciones paso a paso sobre cómo deshabilitar THP.
 
 
-## Instalación de Splunk Enterprise en Linux
+## Proceso Detallado - Instalación de Splunk Enterprise en Linux 
 
 ### 1. Acceso al servidor por SSH
 
