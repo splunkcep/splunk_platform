@@ -156,10 +156,6 @@ Ahora, cambie el propietario de la carpeta al usuario splunkuser:
 sudo chown -R splunkuser:splunkuser /opt/splunk
 ```
 
-```python
-sudo chown -R splunkuser:splunkuser /opt/splunk
-```
-
 Compruebe si los permisos son correctos:
 
 ```python
