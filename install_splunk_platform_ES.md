@@ -31,7 +31,7 @@ Antes de comenzar, asegúrese de contar con:
 ## Proceso Detallado
 ### Instalación de Splunk Enterprise en Linux 
 
-### 1. Acceso al servidor por SSH
+### 🔹 1. Acceso al servidor por SSH
 
 Abra una terminal y conéctese al servidor por SSH:
 
@@ -41,35 +41,48 @@ Abra una terminal y conéctese al servidor por SSH:
   * User_Name por el usuario del sistema operativo o del dominio.
   * <SERVER_IP> con la IP real del host donde desea instalar Splunk.
 
-### 2. Creación de un usuario para Splunk
+### 🔹 2. Creación de un usuario para Splunk
 
 Para garantizar una instalación segura, crearemos un usuario dedicado para ejecutar Splunk:
 
-```bash
-# Vamos a crear un usuario llamado splunkuser.
-sudo useradd -m -r splunkuser
+#### Vamos a crear un usuario llamado splunkuser.
 
-# Ahora, debemos definir una contraseña para él:
+```bash
+sudo useradd -m -r splunkuser
+```
+
+#### Ahora, debemos definir una contraseña para él:
+
+```bash
 sudo passwd splunkuser
 ```
 
 
-### 3. Añadir el usuario de Splunk al grupo Sudo
+###  🔹 3. Añadir el usuario de Splunk al grupo Sudo
 
-Añadir splunkuser al grupo Sudo:
+#### Añadir splunkuser al grupo Sudo:
 
 ```bash
 sudo usermod -aG sudo splunkuser
+```
 
-# Verificar que la adición se haya realizado correctamente:
+#### Verificar que la adición se haya realizado correctamente:
+
+```bash
 groups splunkuser
+```
 
-# Cambiar a bash
+#### Cambiar a bash
+```bash
 sudo chsh -s /bin/bash splunkuser
+```
 
-#Aplicar los cambios cerrando sesión y volviendo a iniciarla como splunkuser:
+#### Aplicar los cambios cerrando sesión y volviendo a iniciarla como splunkuser:
+```bash
 su - splunkuser
 ```
+
+### Comandos útiles
 
 ¿Dónde estoy?
 ```bash
@@ -91,9 +104,9 @@ ls
 ls -lha
 ```
 
-🔹 4️⃣ Descargue del instalador de Splunk
+### 🔹 4. Descargue del instalador de Splunk
 
-🔹 Este comando:
+Este comando:
 • Descargue la versión 9.4.1 de Splunk Enterprise.
 • Si desea otra versión, modifique el enlace en wget.
 
@@ -107,7 +120,7 @@ Ahora, vaya a su directorio de descargas:
 cd /home/splunkuser/
 ```
 
-🔹 5️⃣ Ajustar los permisos del archivo de instalación
+### 🔹 5. Ajustar los permisos del archivo de instalación
 
 Antes de instalar, compruebe los permisos del archivo:
 ```bash
@@ -127,7 +140,7 @@ Verifique nuevamente los permisos:
 ls -lha /home/splunkuser
 ```
 
-🔹 6️⃣ Creación del directorio de instalación de Splunk
+### 🔹 6. Creación del directorio de instalación de Splunk
 
 
 ```bash
@@ -151,7 +164,7 @@ Compruebe si los permisos son correctos:
 ls -lha /opt/splunk
 ```
 
-🔹 7️⃣ Instalación de Splunk
+### 🔹 7. Instalación de Splunk
 
 Extraiga el archivo descargado en /opt
 (📌 Esto instalará Splunk en la carpeta /opt/splunk):
@@ -160,7 +173,7 @@ Extraiga el archivo descargado en /opt
 tar -xzvf splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz -C /opt
 ```
 
-🔹 8️⃣ Inicio de Splunk
+### 🔹 8. Inicio de Splunk
 
 Ahora, inicie Splunk y acepte la licencia:
 
@@ -176,7 +189,7 @@ Ahora, inicie Splunk y acepte la licencia:
 * Contraseña de Splunk: splunkuser
 
 
-🔹 9️⃣ Configurar Splunk para que se inicie automáticamente
+### 🔹 9. Configurar Splunk para que se inicie automáticamente
 
 Para garantizar que Splunk se inicie automáticamente al reiniciar el servidor:
 
@@ -200,7 +213,7 @@ USER=splunkuser
 . /etc/init.d/functions
 ```
 
-🔹 🔄 Comandos básicos para administrar Splunk
+### 🔹 🔄 Comandos básicos para administrar Splunk
 
 Comprobar estado
 
