@@ -3,17 +3,17 @@
 ## Verifique el estado del firewall, utilice el comando correspondiente según el tipo de SO usado.
 ### Compruebe que el servicio firewall está en ejecución.
 
-### Fedora: 
+#### Fedora: 
 ```bash
 sudo firewall-cmd --state
 ```
 
-### CentOS: 
+#### CentOS: 
 ```bash
 systemctl status firewalld
 ```
 
-### CentOS/RHEL 6 and earlier: 
+#### CentOS/RHEL 6 and earlier: 
 ``` bash
 sudo iptables -L
 ```
@@ -21,17 +21,17 @@ sudo iptables -L
 ## ¿Qué sertvicios están corriendo?
 ### Confirme qué servicios están en ejecución.
 
-### Fedora: 
+#### Fedora: 
 ```bash
 sudo firewall-cmd --list-services
 ```
 
-### CentOS: 
+#### CentOS: 
 ```bash
 systemctl list-units --type=service --state=running
 ```
 
-### CentOS/RHEL 6 and earlier: 
+#### CentOS/RHEL 6 and earlier: 
 ``` bash
 service --status-all
 ```
@@ -39,17 +39,17 @@ service --status-all
 ## Agregación adicional del puerto TCP:
 ### Utilice el comando firewall-cmd para agregar la excepeción del puerto TCP.
 
-### Fedora: 
+#### Fedora: 
 ```bash
 sudo firewall-cmd --permanent --add-port=8000/tcp
 ```
 
-### CentOS: 
+#### CentOS: 
 ```bash
 sudo firewall-cmd --zone=public --add-port=8000/tcp --permanent
 ```
 
-### CentOS/RHEL 6 and earlier: 
+#### CentOS/RHEL 6 and earlier: 
 ``` bash
 sudo iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
 sudo service iptables save
@@ -61,7 +61,7 @@ sudo iptables -L -n
 ## Recargar el firewall:
 ### Después de agregar la excepción del puerto, vuelva a cargar el firewall para aplicar los cambios.
 
-### Fedora: 
+#### Fedora: 
 ```bash
 sudo firewall-cmd --reload
 ```
@@ -69,7 +69,7 @@ sudo firewall-cmd --reload
 ## Verificación de la excepción:
 ### Para verificar que se ha agregado el puerto, enumere todos los puertos abiertos.
 
-### Fedora:
+#### Fedora:
 ```bash
 sudo firewall-cmd --list-ports
 ```
