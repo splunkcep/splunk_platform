@@ -24,7 +24,7 @@ Antes de comenzar, asegúrese de contar con:
 * Permisos de root en el sistema operativo.
 * Su sistema operativo debe tener una conexión a internet adecuada.
 * Entorno de ejecución de Python.
-* Todos los puertos necesarios están abiertos. Consulte el archivo [Preparación del firewall](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/FirewallPrep_ES.md) para ver las instrucciones paso a paso para preparar el firewall de su sistema operativo para la instalación de Splunk Enterprise.
+* Todos los puertos necesarios están abiertos. Consulte el archivo [Preparación del firewall](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Firewall.md) para ver las instrucciones paso a paso para preparar el firewall de su sistema operativo para la instalación de Splunk Enterprise [OS](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/FirewallPrep_ES.md).
 * Las páginas transparentes de Hughe (THP) están deshabilitadas en el sistema operativo. Consulta el archivo [Deshabilitar THP](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_ES.md) para ver instrucciones paso a paso sobre cómo deshabilitar THP.
 
 
