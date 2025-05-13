@@ -104,6 +104,7 @@ ls
 ls -lha
 ```
 
+
 ### 🔹 4. Descargue del instalador de Splunk
 
 Este comando:
@@ -119,6 +120,7 @@ Ahora, vaya a su directorio de descargas:
 ```bash
 cd /home/splunkuser/
 ```
+
 
 ### 🔹 5. Ajustar los permisos del archivo de instalación
 
@@ -140,8 +142,8 @@ Verifique nuevamente los permisos:
 ls -lha /home/splunkuser
 ```
 
-### 🔹 6. Creación del directorio de instalación de Splunk
 
+### 🔹 6. Creación del directorio de instalación de Splunk
 
 ```bash
 sudo mkdir /opt/splunk
@@ -164,6 +166,7 @@ Compruebe si los permisos son correctos:
 ls -lha /opt/splunk
 ```
 
+
 ### 🔹 7. Instalación de Splunk
 
 Extraiga el archivo descargado en /opt
@@ -172,6 +175,7 @@ Extraiga el archivo descargado en /opt
 ```python
 tar -xzvf splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz -C /opt
 ```
+
 
 ### 🔹 8. Inicio de Splunk
 
@@ -213,6 +217,7 @@ USER=splunkuser
 . /etc/init.d/functions
 ```
 
+
 ### 🔹 🔄 Comandos básicos para administrar Splunk
 
 Comprobar estado
@@ -244,4 +249,3 @@ Splunk ya está instalado y configurado en su servidor Linux. Para acceder a él
 ```python
 http://<IP_DO_SERVIDOR>:8000
 ```
-
