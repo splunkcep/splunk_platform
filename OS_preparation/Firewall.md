@@ -3,9 +3,9 @@
 ## Verifique el estado del firewalld:
 ### Compruebe que el servicio firewalld está en ejecución.
 
-```bash
-sudo systemctl status firewalld
-```
+Fedora: ```bash sudo firewall-cmd --state ```
+CentOS: ```bash systemctl status firewalld ```
+CentOS/RHEL 6 and earlier: ```bash sudo iptables -L ```
 
 ## Agregación adicional del puerto TCP:
 ### Utilice el comando firewall-cmd para agregar la excepeción del puerto TCP.
