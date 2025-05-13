@@ -3,7 +3,11 @@
 ## Verifique el estado del firewall, utilice el comando correspondiente según el tipo de SO usado. El orden de los SOs es el siguiente: Fedora, CentOS y CentOS/RHEL 6 and earlier:
 ### Compruebe que el servicio firewall está en ejecución.
 
-### Fedora: ```bash sudo firewall-cmd --state ```
+### Fedora: 
+```bash
+sudo firewall-cmd --state
+```
+
 ### CentOS: ```bash systemctl status firewalld ```
 ### CentOS/RHEL 6 and earlier: ```bash sudo iptables -L ```
 
