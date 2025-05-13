@@ -249,3 +249,5 @@ Splunk ya está instalado y configurado en su servidor Linux. Para acceder a él
 ```python
 http://<IP_DO_SERVIDOR>:8000
 ```
+
+### 🔹 10. Instalar la licencia de Splunk
