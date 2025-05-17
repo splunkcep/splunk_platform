@@ -60,70 +60,78 @@ sudo passwd splunkuser
 ```
 
 
-### 3. Adding the Splunk User to the Sudo Group
+### 3. Adding the Splunk User to the Sudo/Wheel Group
 
-Add splunkuser to the sudo group:
+1. Add splunkuser to the sudo group:
 
+CentOS / RHEL
+```bash
+sudo usermod -aG wheel splunkuser
+```
+
+UBUNTU ??? #Validate this is true for UBUNTU
 ```bash
 sudo usermod -aG sudo splunkuser
+```
 
-# Verify that the addition was successful:
+2. Verify that the addition was successful
+```bash
 groups splunkuser
+```
 
-# switch to bash
+3. Switch to bash
+
+CentOS / RHEL
+```bash
+# Validate your SHELL, which should be /bin/bash
+su splunkuser
+echo $SHELL  
+```
+
+
+UBUNTU ??? #Validate this is true for UBUNTU
+```bash
+su splunkuser
 sudo chsh -s /bin/bash splunkuser
+```
 
-#Apply the changes by logging out and logging back in as splunkuser:
+Apply the changes by logging out and logging back in as splunkuser:
+```bash
 su - splunkuser
 ```
 
-Where am I?
-```bash
-pwd
-```
+4. Downloading the Splunk Installer
 
-Who am I?
-```bash
-whoami
-```
+Go to https://www.splunk.com/en_us/download/splunk-enterprise.html and
+* Log in if requested (requires Splunk.com user)
+* Select *Linux* as Operating System
+* at the *.tgz* option, click on *Copy wget link* and copy the wget command shown
 
-What do I have?
-```bash
-ls
-```
 
-What permissions are associated with what I have?
-```bash
-ls -lha
-```
-
-🔹 4️⃣ Downloading the Splunk Installer
-
-🔹 This command:
-	•	Download Splunk Enterprise version 9.4.1.
-	•	If you want another version, adjust the link in wget.
-
+Execute the command sith sudo. This downloads Splunk Enterprise version 9.X.X.
 
 ```bash
+# This is an EXAMPLE. Use the wget command copyed from the download page.
+cd /home/splunkuser/
 sudo wget -O splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz "https://download.splunk.com/products/splunk/releases/9.4.1/linux/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz"
 ```
 
-Now, go to your downloads directory:
-
+Now, go to the directory you downloaded the file and validate the file is found
 
 ```bash
 cd /home/splunkuser/
+ls
 ```
 
-🔹 5️⃣ Adjusting Permissions on the Installation File
+5. Adjusting Permissions on the Installation File
 
 Before installing, check the file permissions:
 ```bash
 ls -lha /home/splunkuser
 ```
 
+You will notice *splunkuser* currently has read permissions on the file but cannot execute, modify or delete it without sudo or a change in ownership or granting the proper permissions
 Give execute permission to the file:
-
 
 ```bash
 sudo chmod +x /home/splunkuser/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz
@@ -135,31 +143,32 @@ Double check the permissions:
 ```bash
 ls -lha /home/splunkuser
 ```
+The permissions are now -rwxr-xr-x. This means *splunkuser* can read the file (r) and can now execute it (x).
 
-🔹 6️⃣ Creating the Splunk Installation Directory
+6. Creating the Splunk Installation Directory
 
-
+The following command will create the splunk directory
 ```bash
 sudo mkdir /opt/splunk
 ```
+This creates the folder, but only *root* has permissions over it. You can check it running
 
-Now, change the owner of the folder to the splunkuser user:
-
-
-```python
-sudo chown -R splunkuser:splunkuser /opt/splunk
-```
-
-```python
-sudo chown -R splunkuser:splunkuser /opt/splunk
-```
-
-Check if the permissions are correct:
-
-
-```python
+```bash
 ls -lha /opt/splunk
 ```
+
+Then, let's change the owner of the folder to the splunkuser user and validate the permissions
+
+
+```bash
+#Changes the ownership of the folder
+sudo chown -R splunkuser:splunkuser /opt/splunk
+
+#checks the permissions on the folder
+ls -lha /opt/splunk
+```
+
+
 
 🔹 7️⃣ Installing Splunk
 
