@@ -1,10 +1,5 @@
 # Splunk Enterprise Setup Guide
 
-
-This project documents the step-by-step procedure originally executed in a Google Colab environment, now adapted into Markdown format for professional GitHub repositories.
-
-The goal is to make the content clear, organized, and reusable by any Splunk analyst or architect aiming to install and configure **Splunk ES 8.0.2**.
-
 ---
 
 ## Table of Contents
