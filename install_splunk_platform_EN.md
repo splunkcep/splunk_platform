@@ -95,7 +95,7 @@ Apply the changes by logging out and logging back in as splunkuser:
 su - splunkuser
 ```
 
-4. Downloading the Splunk Installer
+### 4. Downloading the Splunk Installer
 
 Go to https://www.splunk.com/en_us/download/splunk-enterprise.html and
 * Log in if requested (requires Splunk.com user)
@@ -118,7 +118,7 @@ cd /home/splunkuser/
 ls
 ```
 
-5. Adjusting Permissions on the Installation File
+### 5. Adjusting Permissions on the Installation File
 
 Before installing, check the file permissions:
 ```bash
@@ -129,18 +129,17 @@ You will notice *splunkuser* currently has read permissions on the file but cann
 Give execute permission to the file:
 
 ```bash
-sudo chmod +x /home/splunkuser/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz
+sudo chmod +x /home/splunkuser/splunk-9.4.2-e9664af3d956-linux-amd64.tgz
 ```
 
 Double check the permissions:
-
 
 ```bash
 ls -lha /home/splunkuser
 ```
 The permissions are now -rwxr-xr-x. This means *splunkuser* can read the file (r) and can now execute it (x).
 
-6. Creating the Splunk Installation Directory
+### 6. Creating the Splunk Installation Directory
 
 The following command will create the splunk directory
 ```bash
@@ -154,7 +153,6 @@ ls -lha /opt/splunk
 
 Then, let's change the owner of the folder to the splunkuser user and validate the permissions
 
-
 ```bash
 #Changes the ownership of the folder
 sudo chown -R splunkuser:splunkuser /opt/splunk
@@ -163,40 +161,36 @@ sudo chown -R splunkuser:splunkuser /opt/splunk
 ls -lha /opt/splunk
 ```
 
+### 7. Installing Splunk
 
+Extract the downloaded file to /opt. This will install Splunk in the folder /opt/splunk
 
-🔹 7️⃣ Installing Splunk
-
-Extract the downloaded file to /opt
-(📌 This will install Splunk in the folder /opt/splunk):
-
-
-```python
-tar -xzvf splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz -C /opt
+```bash
+tar -xzvf splunk-9.4.2-e9664af3d956-linux-amd64.tgz -C /opt
 ```
 
-🔹 8️⃣ Starting Splunk
+### 8. Starting Splunk
 
 Now, launch Splunk and accept the license:
 
-
-```python
+```bash
 /opt/splunk/bin/splunk start --accept-license
 ```
+
+This will prompt you to define an Administrator username and password. Set it appropiatelly.
 
 🔑
 * Splunk Default Credentials:
 *	OS User: splunkuser
-*	OS Password: (definida anteriormente)
+*	OS Password: (previously defined)
 *	Splunk User: admin
-*	Splunk Password: splunkuser
+*	Splunk Password: splunkuser (or any other you define)
 
-🔹 9️⃣ Setting Splunk to Start Automatically
+### 9. Setting Splunk to Start Automatically
 
 To ensure that Splunk starts automatically when you restart the server:
 
-
-```python
+```bash
 sudo /opt/splunk/bin/splunk enable boot-start -user splunkuser --accept-license --answer-yes --no-prompt
 ```
 
@@ -204,54 +198,47 @@ This configures the Splunk service to start automatically when the system starts
 
 Check the startup file:
 
-
-```python
+```bash
 sudo vi /etc/init.d/splunk
 ```
 
 Add the following lines (if necessary):
 
-
-```python
+```bash
 RETVAL=0
 USER=splunkuser
 . /etc/init.d/functions
 ```
 
-🔹 🔄 Basic Commands to Manage Splunk
+## Basic Commands to Manage Splunk
 
 Check status
 
-
-```python
+```bash
 /opt/splunk/bin/splunk status
 ```
 
 Launch Splunk
 
-
-```python
+```bash
 /opt/splunk/bin/splunk start
 ```
 
 Stop Splunk
 
-
-```python
+```bash
 /opt/splunk/bin/splunk stop
 ```
 
 Restart Splunk
 
-
-```python
+```bash
 /opt/splunk/bin/splunk restart
 ```
 
 Splunk is now installed and configured on your Linux server. To access it via a web browser, open:
 
-
-```python
+```bash
 http://<IP_DO_SERVIDOR>:8000
 ```
 
