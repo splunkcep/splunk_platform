@@ -239,6 +239,6 @@ Restart Splunk
 Splunk is now installed and configured on your Linux server. To access it via a web browser, open:
 
 ```bash
-http://<IP_DO_SERVIDOR>:8000
+http://<SERVER_IP:8000
 ```
 
