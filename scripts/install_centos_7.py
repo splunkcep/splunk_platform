@@ -42,8 +42,8 @@ def prepare_installation():
     print("Preparing /opt/splunk directory...")
     os.system("sudo rm -rf /opt/splunk")
     os.system("sudo mkdir -p /opt/splunk")
-    os.system("sudo chown -R splunkuser:splunkuser /opt/splunk")
-    os.system("sudo chmod -R 755 /opt/splunk")
+    os.system("sudo chown -R splunkuser:splunkuser /opt")
+    os.system("sudo chmod -R 755 /opt")
     print("/opt/splunk is ready!")
 
 def install_splunk():
