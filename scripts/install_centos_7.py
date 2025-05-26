@@ -49,7 +49,7 @@ def prepare_installation():
 def install_splunk():
     """Extract and install Splunk."""
     print("Installing Splunk...")
-    os.system("sudo -u splunkuser tar -xzvf /tmp/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz -C /opt --strip-components=1")
+    os.system("sudo -u splunkuser tar -xzvf /tmp/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz -C /opt")
     print("Splunk installation completed.")
 
 def create_admin_user():
