@@ -1,4 +1,6 @@
-# Splunk Enterprise Setup Guide
+# Preparing RHEL 9 for Splunk Enterprise Installation
+
+This project documents the step-by-step procedure to prepare a Red Hat Enterprise Linux 9 (RHEL 9) operating system to host Splunk Enterprise.
 
 ## Table of Contents
 
@@ -6,318 +8,105 @@
 
 * [Prerequisites](#prerequisites)
 
-* [Detailed Procedure](#detailed-procedure)
+* [Firewall Preparation](#firewall-preparation)
 
-* [Conclusion](#conclusion)
-
-* [Final Notes](#final-notes)
+* [Next Steps](#next-steps)
 
 ## Introduction
 
-This guide provides a detailed procedure for installing and configuring Splunk Enterprise. Aimed at technology engineers, it facilitates leveraging machine data. Learn to transform your data into operational intelligence.
+This project documents the step-by-step procedure to prepare a Red Hat Enterprise Linux 9 (RHEL 9) operating system to host Splunk Enterprise.
 
 ## Prerequisites
 
-Before starting, make sure you have:
+Before starting, make sure :
 
-* A supported operating system installed. Check [here](https://docs.splunk.com/Documentation/Splunk/9.4.1/Installation/Systemrequirements) for the list of supportes OS.
+* Red Hat Enterprise Linux 9 (RHEL 9) Operating system is already installed.
+* The server has internet connectivity.
+* You have Root privileges to run the commands.
 
-* A valid Splunk Enterprise license.
+## Firewall preparation
 
-* Root permissions on OS.
+RHEL 9 typically uses `firewalld` for firewall management. We will ensure the service is installed and configure the necessary ports.
 
-* Your OS mus have proper internet connectivity.
+### 1. Firewall validation / installation
 
-* Python execution environment.
+First, check the status of the `firewalld` service.
 
-* All necessary ports are opened. See the [Firewall Preparation](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/FirewallPrep_EN.md) file to see step-by-step instructions to prepare your OS firewall for Splunk enterprise installation
-
-* Transparent Huge Pages (THP) are disabled on the OS. See the [Disable THP](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_EN.md) file to see step-by-step instructions on how to disable THP.
-
-## Installing Splunk Enterprise on Linux
-
-### 1. Accessing the Server via SSH
-
-Open a terminal and connect to the server via SSH:
-
-`ssh User_Name@<Server_IP>`
-
-* Replace:
-
-  * User_Name by the operating system or domain user.
-
-  * `<SERVER_IP>` with the actual IP of the host where you want to install Splunk.
-
-### 2. Creating a User for Splunk
-
-To ensure a secure installation, we will create a dedicated user to run Splunk:
-
-```
-# Let's create a user called splunkuser.
-sudo useradd -m -r splunkuser
-
-# Now, we have to define a password for it
-sudo passwd splunkuser
-
-
+```bash
+# Verify firewall service status
+sudo systemctl status firewalld
 ```
 
-### 3. Adding the Splunk User to the Sudo/Wheel Group
+If you see "active (running)", go to the section "[Open necessary ports](#open-necessary-ports)".
 
-1. Add `splunkuser` to the appropriate group for `sudo` privileges:
+If you receive the message "Unit firewalld.service could not be found", then install the firewall.
 
-   **CentOS / RHEL**
+```bash
+# Firewall Installation (if not already installed)
+sudo dnf install firewalld -y # Added -y to auto-confirm installation
 
-   ```
-   sudo usermod -aG wheel splunkuser
-   
-   
-   ```
+# Start and enable firewall service (so it runs on boot)
+sudo systemctl enable firewalld --now
 
-   **Ubuntu**
-
-   ```
-   sudo usermod -aG sudo splunkuser
-   
-   
-   ```
-
-2. Verify that the addition was successful:
-
-   ```
-   groups splunkuser
-   
-   
-   ```
-
-3. Switch to bash (if necessary):
-
-   **CentOS / RHEL / Ubuntu**
-
-   ```
-   # Validate your SHELL, which should ideally be /bin/bash
-   su - splunkuser
-   echo $SHELL
-   
-   
-   ```
-
-   *(Note: The `su - splunkuser` command will log you in as `splunkuser` with their default shell. If `chsh` is needed to change the default shell, it should be done before `su -`)*
-
-   Apply the changes by logging out and logging back in as `splunkuser`:
-
-   ```
-   exit # Exit current session if you used 'su - splunkuser'
-   ssh splunkuser@<Server_IP> # Log back in as splunkuser
-   
-   
-   ```
-
-   Alternatively, if you are already logged in as `splunkuser` after `su - splunkuser`, you can simply `exit` and then `su - splunkuser` again to ensure group changes are applied.
-
-### 4. Downloading the Splunk Installer
-
-Go to <https://www.splunk.com/en_us/download/splunk-enterprise.html> and
-
-* Log in if requested (requires Splunk.com user)
-
-* Select *Linux* as Operating System
-
-* at the *.tgz* option, click on *Copy wget link* and copy the `wget` command shown
-
-Execute the command with `sudo`. This downloads Splunk Enterprise version 9.X.X.
-
-```
-# This is an EXAMPLE. Use the wget command copied from the download page.
-cd /home/splunkuser/
-sudo wget -O splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz "[https://download.splunk.com/products/splunk/releases/9.4.1/linux/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz](https://download.splunk.com/products/splunk/releases/9.4.1/linux/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz)"
-
-
+# Verify firewall is running
+sudo systemctl status firewalld
 ```
 
-Now, go to the directory you downloaded the file and validate the file is found:
+### 2. Open necessary ports
 
-```
-cd /home/splunkuser/
-ls
+To make the most of Splunk, we need to open the following ports. We have included common Splunk ports listed in the documentation and in the preparation for other Linux distributions.
 
+* 8000 TCP - To allow Splunk Web Interface
+* 8089 TCP - To allow Splunk Management Interface / REST API
+* 8443 TCP - To allow Splunk Management Interface (SSL)
+* 9997 TCP - To allow communication to Universal Forwarder (Indexer Data Receiving)
+* 8088 TCP - To allow communication to HTTP Event Collector (HEC)
+* 8191 TCP - To allow KV Store (relevant for clustered environments)
+* 443 TCP - To allow Secure Web Interface (HTTPS) if configured, or for outbound connections
+* 22 TCP - To allow SSH (usually already open, but good to confirm)
 
-```
+```bash
+# Open necessary ports permanently
 
-### 5. Adjusting Permissions on the Installation File
+# Allow Splunk Web Interface (TCP 8000)
+sudo firewall-cmd --zone=public --add-port=8000/tcp --permanent
 
-Before installing, check the file permissions:
+# Allow Splunk Management Interface / REST API (TCP 8089)
+sudo firewall-cmd --zone=public --add-port=8089/tcp --permanent
 
-```
-ls -lha /home/splunkuser
+# Allow Splunk Management Interface (SSL) (TCP 8443)
+sudo firewall-cmd --zone=public --add-port=8443/tcp --permanent
 
+# Allow Indexer Data Receiving (TCP 9997)
+sudo firewall-cmd --zone=public --add-port=9997/tcp --permanent
 
-```
+# Allow HTTP Event Collector (HEC) (TCP 8088)
+sudo firewall-cmd --zone=public --add-port=8088/tcp --permanent
 
-You will notice `splunkuser` currently has read permissions on the file but cannot execute, modify or delete it without `sudo` or a change in ownership or granting the proper permissions.
-Give execute permission to the file:
+# Allow KV Store (TCP 8191)
+sudo firewall-cmd --zone=public --add-port=8191/tcp --permanent
 
-```
-sudo chmod +x /home/splunkuser/splunk-9.4.2-e9664af3d956-linux-amd64.tgz
+# Allow Secure Web Interface (HTTPS) (TCP 443) - Optional, only needed if you configure Splunk for HTTPS on 443
+sudo firewall-cmd --zone=public --add-port=443/tcp --permanent
 
-
-```
-
-Double check the permissions:
-
-```
-ls -lha /home/splunkuser
-
-
-```
-
-The permissions are now `-rwxr-xr-x`. This means `splunkuser` can read the file (r) and can now execute it (x).
-
-### 6. Creating the Splunk Installation Directory
-
-The following command will create the splunk directory:
-
-```
-sudo mkdir /opt/splunk
-
-
+# Allow SSH (TCP 22) - Usually already open
+sudo firewall-cmd --zone=public --add-port=22/tcp --permanent
 ```
 
-This creates the folder, but only `root` has permissions over it. You can check it running:
+### 3. Apply changes and verify
 
-```
-ls -lha /opt/splunk
+```bash
+# Reload firewall to apply permanent rules to the running configuration
+sudo firewall-cmd --reload
 
-
-```
-
-Then, let's change the owner of the folder to the `splunkuser` user and validate the permissions:
-
-```
-#Changes the ownership of the folder
-sudo chown -R splunkuser:splunkuser /opt/splunk
-
-#checks the permissions on the folder
-ls -lha /opt/splunk
-
-
+# Verify permanent configuration (list allowed ports)
+sudo firewall-cmd --zone=public --list-ports --permanent
 ```
 
-### 7. Installing Splunk
+## Next Steps
 
-Extract the downloaded file to `/opt`. This will install Splunk in the folder `/opt/splunk`:
+The recommended Next Step for deploying Splunk Enterprise is [Disabling Transparent Huge Pages (THP)](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_EN.md)
 
-```
-tar -xzvf splunk-9.4.2-e9664af3d956-linux-amd64.tgz -C /opt
+## References
 
-
-```
-
-### 8. Starting Splunk
-
-Now, launch Splunk and accept the license:
-
-```
-/opt/splunk/bin/splunk start --accept-license
-
-
-```
-
-This will prompt you to define an Administrator username and password. Set it appropriately.
-
-🔑
-
-* Splunk Default Credentials:
-
-* OS User: `splunkuser`
-
-* OS Password: (previously defined)
-
-* Splunk User: `admin`
-
-* Splunk Password: `splunkuser` (or any other you define)
-
-### 9. Setting Splunk to Start Automatically
-
-To ensure Splunk starts automatically when you restart the server, we'll use Splunk's built-in boot-start functionality, which integrates with **systemd**, the default service manager on CentOS 7 and 8, RHEL 7 and 8, and modern Ubuntu versions.
-
-Execute the following command. The `-systemd-managed 1` flag explicitly tells Splunk to configure itself as a systemd service.
-
-```
-sudo /opt/splunk/bin/splunk enable boot-start -user splunkuser --accept-license --answer-yes --no-prompt -systemd-managed 1
-
-
-```
-
-This command creates and enables a `systemd` service unit for Splunk, allowing it to start automatically on system boot.
-
-### 10. Verify Splunk's Systemd Service
-
-After running the command, you can verify the service status and ensure it's enabled to start on boot:
-
-1. **Check the service status:**
-
-   ```
-   systemctl status Splunkd.service
-   
-   
-   ```
-
-   You should see output indicating that the service is `active (running)`.
-
-2. **Verify if it's enabled to start on boot:**
-
-   ```
-   systemctl is-enabled Splunkd.service
-   
-   
-   ```
-
-   This command should output `enabled`. If for any reason it's not enabled, you can enable it manually (though the `enable boot-start` command should handle this):
-
-   ```
-   sudo systemctl enable Splunkd.service
-   
-   
-   ```
-
-## Basic Commands to Manage Splunk
-
-Check status
-
-```
-/opt/splunk/bin/splunk status
-
-
-```
-
-Launch Splunk
-
-```
-/opt/splunk/bin/splunk start
-
-
-```
-
-Stop Splunk
-
-```
-/opt/splunk/bin/splunk stop
-
-
-```
-
-Restart Splunk
-
-```
-/opt/splunk/bin/splunk restart
-
-
-```
-
-Splunk is now installed and configured on your Linux server. To access it via a web browser, open:
-
-```
-http://<SERVER_IP>:8000
-
-
+* [Splunk Enterprise Network and Port Requirements](https://docs.splunk.com/Documentation/Splunk/9.4.1/InheritedDeployment/Ports)
