@@ -129,7 +129,7 @@ You will notice *splunkuser* currently has read permissions on the file but cann
 Give execute permission to the file:
 
 ```bash
-sudo chmod +x /home/splunkuser/splunk-9.4.2-e9664af3d956-linux-amd64.tgz
+sudo chmod +x /home/splunkuser/splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz
 ```
 
 Double check the permissions:
@@ -166,7 +166,7 @@ ls -lha /opt/splunk
 Extract the downloaded file to /opt. This will install Splunk in the folder /opt/splunk
 
 ```bash
-tar -xzvf splunk-9.4.2-e9664af3d956-linux-amd64.tgz -C /opt
+tar -xzvf splunk-9.4.1-e3bdab203ac8-linux-amd64.tgz -C /opt
 ```
 
 ### 8. Starting Splunk
@@ -188,27 +188,54 @@ This will prompt you to define an Administrator username and password. Set it ap
 
 ### 9. Setting Splunk to Start Automatically
 
-To ensure that Splunk starts automatically when you restart the server:
+To ensure Splunk starts automatically when you restart the server, we'll use Splunk's built-in boot-start functionality, which integrates with **systemd**, the default service manager on CentOS 7 and 8, RHEL 7 and 8, and modern Ubuntu versions.
 
-```bash
-sudo /opt/splunk/bin/splunk enable boot-start -user splunkuser --accept-license --answer-yes --no-prompt
+Execute the following command. The `-systemd-managed 1` flag explicitly tells Splunk to configure itself as a systemd service.
+
+```
+# We need first to stop the Splunk service
+sudo /opt/splunk/bin/splunk stop
+
+#then, we run the command
+sudo /opt/splunk/bin/splunk enable boot-start -user splunkuser --accept-license --answer-yes --no-prompt -systemd-managed 1
+
+#then, we run splunk again
+/opt/splunk/bin/splunk start
+
 ```
 
-This configures the Splunk service to start automatically when the system starts.
+This command creates and enables a `systemd` service unit for Splunk, allowing it to start automatically on system boot.
 
-Check the startup file:
+### 10. Verify Splunk's Systemd Service
 
-```bash
-sudo vi /etc/init.d/splunk
-```
+After running the command, you can verify the service status and ensure it's enabled to start on boot:
 
-Add the following lines (if necessary):
+1. **Check the service status:**
 
-```bash
-RETVAL=0
-USER=splunkuser
-. /etc/init.d/functions
-```
+   ```
+   systemctl status Splunkd.service
+   
+   
+   ```
+
+   You should see output indicating that the service is `active (running)`.
+
+2. **Verify if it's enabled to start on boot:**
+
+   ```
+   systemctl is-enabled Splunkd.service
+   
+   
+   ```
+
+   This command should output `enabled`. If for any reason it's not enabled, you can enable it manually (though the `enable boot-start` command should handle this):
+
+   ```
+   sudo systemctl enable Splunkd.service
+   
+   
+   ```
+
 
 ## Basic Commands to Manage Splunk
 
