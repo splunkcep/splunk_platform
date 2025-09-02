@@ -35,7 +35,7 @@ Primero, verifica el estado del servicio `ufw`.
 sudo ufw status
 ```
 
-If you see "Status: active", go to the section "Open necessary ports".
+If you see "active (running)", go to the section "[Open necessary ports](#open-necessary-ports)".
 
 If you receive the message "Status: inactive" or "ufw: command not found", then install and enable the firewall.
 
