@@ -109,7 +109,7 @@ sudo ufw status verbose
 
 ## Próximos pasos
 
-El siguiente paso recomendado para desplegar Splunk Enterprise es Deshabilitar las Páginas Grandes Transparentes (THP).
+El siguiente paso recomendado para desplegar Splunk Enterprise es [Deshabilitar Transparent Huge Pages (THP)](https://github.com/splunkcep/splunk_platform/blob/main/OS_preparation/Disable_THP_ES.md)
 Nota: Aunque el documento enlazado es general, los pasos específicos para deshabilitar THP pueden variar ligeramente entre las distribuciones de Linux. Consulta siempre la documentación oficial de Splunk para obtener la guía más precisa para tu versión específica del sistema operativo.
 
 
